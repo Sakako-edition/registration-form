@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลงทะเบียนเข้าร่วมอบรม</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(at 40% 20%, hsla(228, 100%, 74%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.1) 0px, transparent 50%);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 500px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+            color: var(--text-main);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: #94a3b8;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-submit:active {
+            transform: translateY(1px);
+        }
+
+        .btn-submit:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        /* Status Messages */
+        .status-message {
+            display: none;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .status-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>ลงทะเบียนเข้าร่วมอบรม</h1>
+            <p>กรุณากรอกข้อมูลของท่านให้ครบถ้วน</p>
+        </div>
+
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="empId">รหัสพนักงาน</label>
+                <input type="text" id="empId" name="empId" class="form-control" placeholder="เช่น 10234" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fullName">ชื่อ-นามสกุล</label>
+                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="ชื่อ นามสกุล"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="division">ฝ่าย</label>
+                <select id="division" name="division" class="form-control" required>
+                    <option value="">-- กำลังโหลด... --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="bureau">กอง</label>
+                <select id="bureau" name="bureau" class="form-control" disabled>
+                    <option value="">-- เลือกกอง --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="section">แผนก</label>
+                <select id="section" name="section" class="form-control" disabled>
+                    <option value="">-- เลือกแผนก --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">เบอร์ติดต่อ</label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="08X-XXX-XXXX" required>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">ลงทะเบียน</button>
+        </form>
+
+        <div id="successMessage" class="status-message status-success">
+            ลงทะเบียนสำเร็จ! ขอบคุณที่ให้ความสนใจ
+        </div>
+
+        <div id="errorMessage" class="status-message status-error">
+            เกิดข้อผิดพลาดในการลงทะเบียน กรุณาลองใหม่อีกครั้ง
+        </div>
+    </div>
+
+    <script>
+        // ใส่ URL ที่ได้จาก Google Apps Script ที่นี่
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYoCyLnPCFNFtkqBC-ugknQbqTBAno7Qa3anGHFrSzZFU5lrm4hI8KTMXFq7YdnUVE/exec';
+
+        const form = document.getElementById('registrationForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        const divisionSelect = document.getElementById('division');
+        const bureauSelect = document.getElementById('bureau');
+        const sectionSelect = document.getElementById('section');
+        let dropdownData = {}; // เก็บข้อมูล hierarchy ของ ฝ่าย -> กอง -> แผนก
+
+        // ฟังก์ชันโหลดข้อมูล Dropdown ตอนเปิดหน้าเว็บ
+        async function fetchDropdownData() {
+            try {
+                divisionSelect.innerHTML = '<option value="">-- กำลังโหลดข้อมูล... --</option>';
+                // ส่งเป็น GET request ไปที่ Apps Script เพื่อดึง JSON
+                const response = await fetch(GOOGLE_SCRIPT_URL);
+                const json = await response.json();
+
+                if (json.status === 'success') {
+                    dropdownData = json.data;
+                    populateDivisions();
+                } else {
+                    console.error("Server error:", json.message);
+                    divisionSelect.innerHTML = `<option value="">-- ข้อผิดพลาด: ${json.message || 'โหลดข้อมูลล้มเหลว'} --</option>`;
+                }
+            } catch (err) {
+                console.error("Error fetching dropdown data", err);
+                divisionSelect.innerHTML = '<option value="">-- เกิดข้อผิดพลาดการเชื่อมต่อ --</option>';
+            }
+        }
+
+        function populateDivisions() {
+            divisionSelect.innerHTML = '<option value="">-- เลือกฝ่าย --</option>';
+            for (const division in dropdownData) {
+                const option = document.createElement('option');
+                option.value = division;
+                option.textContent = division;
+                divisionSelect.appendChild(option);
+            }
+        }
+
+        divisionSelect.addEventListener('change', function () {
+            const selectedDivision = this.value;
+            bureauSelect.innerHTML = '<option value="">-- เลือกกอง --</option>';
+            sectionSelect.innerHTML = '<option value="">-- เลือกแผนก --</option>';
+            bureauSelect.disabled = true;
+            sectionSelect.disabled = true;
+
+            if (selectedDivision && dropdownData[selectedDivision]) {
+                const bureaus = Object.keys(dropdownData[selectedDivision]);
+                if (bureaus.length > 0) {
+                    bureauSelect.disabled = false;
+                    for (const bureau of bureaus) {
+                        const option = document.createElement('option');
+                        option.value = bureau;
+                        option.textContent = bureau;
+                        bureauSelect.appendChild(option);
+                    }
+                }
+            }
+        });
+
+        bureauSelect.addEventListener('change', function () {
+            const selectedDivision = divisionSelect.value;
+            const selectedBureau = this.value;
+            sectionSelect.innerHTML = '<option value="">-- เลือกแผนก --</option>';
+            sectionSelect.disabled = true;
+
+            if (selectedBureau && dropdownData[selectedDivision] && dropdownData[selectedDivision][selectedBureau]) {
+                const sections = dropdownData[selectedDivision][selectedBureau];
+                if (sections.length > 0) {
+                    sectionSelect.disabled = false;
+                    sections.forEach(section => {
+                        const option = document.createElement('option');
+                        option.value = section;
+                        option.textContent = section;
+                        sectionSelect.appendChild(option);
+                    });
+                }
+            }
+        });
+
+        // ดึงข้อมูลเมื่อโหลดหน้าเว็บ
+        fetchDropdownData();
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // ซ่อนข้อความเก่า & เปลี่ยนปุ่ม
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'กำลังบันทึกข้อมูล...';
+
+            try {
+                // ดึงข้อมูลจากฟอร์ม
+                const formData = new FormData(form);
+
+                // ส่งข้อมูลไป Google Sheets
+                if (GOOGLE_SCRIPT_URL) {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors'
+                    });
+                }
+
+                // แสดงข้อความสำเร็จ
+                form.reset();
+                successMessage.style.display = 'block';
+
+                // คืนค่า Dropdown กลับเป็นตอนเริ่มต้น
+                bureauSelect.innerHTML = '<option value="">-- เลือกกอง --</option>';
+                sectionSelect.innerHTML = '<option value="">-- เลือกแผนก --</option>';
+                bureauSelect.disabled = true;
+                sectionSelect.disabled = true;
+
+            } catch (error) {
+                console.error('Error!', error.message);
+                errorMessage.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'ลงทะเบียน';
+            }
+        });
+    </script>
+</body>
+
+</html>
